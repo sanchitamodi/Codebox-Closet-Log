@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-cream font-body text-ink antialiased; }
+  button, input, select { font: inherit; }
+  ::selection { @apply bg-sand text-ink; }
+}
+
+@layer components {
+  .input {
+    @apply w-full rounded-xl border border-ink/15 bg-cream/50 px-3.5 py-3 text-sm font-normal outline-none transition placeholder:text-ink/35 focus:border-clay focus:bg-white focus:ring-4 focus:ring-clay/10;
+  }
+}
