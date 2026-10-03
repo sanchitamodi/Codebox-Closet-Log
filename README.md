@@ -4,7 +4,7 @@ Closet Log is a full-stack outfit inspiration board. The React client talks only
 
 ## 1. Create the Supabase table
 
-Create a new Supabase project, open **SQL Editor**, and run [`server/schema.sql`](server/schema.sql). This creates the required `outfits` table with UUID IDs and automatic creation timestamps.
+Create a new Supabase project, open **SQL Editor**, and run [`server/schema.sql`](server/schema.sql). This creates the `outfits` table, a `closet_items` table for uploaded wardrobe pieces, and the `closet-images` Storage bucket. If you set up an earlier version of the project, run the updated SQL file again to add the wardrobe support.
 
 ## 2. Configure environment variables
 
@@ -45,6 +45,9 @@ All request and response bodies are JSON.
 | POST | `/api/outfits` | Create an outfit |
 | PUT | `/api/outfits/:id` | Update an outfit |
 | DELETE | `/api/outfits/:id` | Delete an outfit |
+| GET | `/api/closet-items` | List uploaded wardrobe pieces |
+| POST | `/api/closet-items` | Upload one JPG, PNG, WebP, or GIF image (max 5 MB) |
+| DELETE | `/api/closet-items/:id` | Delete a wardrobe piece and its stored image |
 
 Create/update accepts `name`, `occasion`, `season`, and optional `imageUrl`. `name`, `occasion`, and `season` are required. For example:
 
@@ -55,3 +58,7 @@ curl -X POST http://localhost:4000/api/outfits \
 ```
 
 The server returns JSON errors with appropriate status codes for invalid input, missing records, and database failures.
+
+## Wardrobe photos
+
+Use **My wardrobe** in the app to upload individual clothing or accessory photos. Select one or more pieces, then save an outfit; the card shows those pieces as a mixed-look grid. Photos are stored in the `closet-images` Supabase Storage bucket and use public URLs so the app can display them. Do not upload sensitive photos to this starter app.
